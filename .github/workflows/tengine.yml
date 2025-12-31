@@ -1,4 +1,4 @@
-name: Build Apex Wheels
+name: Build TransformerEngine Wheels
 
 on:
   workflow_dispatch:
@@ -32,11 +32,12 @@ jobs:
           docker-images: true
           swap-storage: true
 
-      - name: Checkout Apex
+      - name: Checkout TransformerEngine
         uses: actions/checkout@v5
         with:
-          repository: NVIDIA/apex
+          repository: NVIDIA/TransformerEngine
           submodules: recursive
+          ref: v2.10
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -55,10 +56,10 @@ jobs:
             CUDACXX="${CUDA_HOME}/bin/nvcc"
             TORCH_CUDA_ARCH_LIST="${{ matrix.arch }}"
             MAX_JOBS=1
-            APEX_CPP_EXT=1
-            APEX_CUDA_EXT=1
+            NVTE_FRAMEWORK=pytorch
+            NVTE_BUILD_THREADS_PER_JOB=1
           CIBW_BEFORE_BUILD_LINUX: >
-            sed -i "s/version=\"0.1\"/version=\"0.1+torch${{ matrix.torch-version }}cu${{ matrix.cuda-version }}\"/g" /project/setup.py &&
+            echo "$(cat build_tools/VERSION.txt)+torch${{ matrix.torch-version }}cu${{ matrix.cuda-version }}" > build_tools/VERSION.txt &&
             python -m pip install -U pip setuptools wheel packaging ninja cmake pybind11 "numpy<2.0.0" auditwheel &&
             python -m pip install --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${{ matrix.cuda-version }}
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: >
