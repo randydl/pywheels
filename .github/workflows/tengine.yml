@@ -55,15 +55,17 @@ jobs:
             CUDA_HOME="/usr/local/cuda"
             CUDACXX="${CUDA_HOME}/bin/nvcc"
             TORCH_CUDA_ARCH_LIST="${{ matrix.arch }}"
+            AUDITWHEEL_PLAT="manylinux_2_27_$(uname -m)"
             MAX_JOBS=1
             NVTE_FRAMEWORK=pytorch
+            NVTE_NO_LOCAL_VERSION=1
             NVTE_BUILD_THREADS_PER_JOB=1
           CIBW_BEFORE_BUILD_LINUX: >
             echo "$(cat build_tools/VERSION.txt)+torch${{ matrix.torch-version }}cu${{ matrix.cuda-version }}" > build_tools/VERSION.txt &&
             python -m pip install -U pip setuptools wheel packaging ninja cmake pybind11 "numpy<2.0.0" auditwheel &&
             python -m pip install --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${{ matrix.cuda-version }}
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: >
-            auditwheel repair -w {dest_dir} {wheel} --plat manylinux_2_28_$(uname -m)
+            auditwheel repair -w {dest_dir} {wheel}
             --exclude libc10.so --exclude libc10* --exclude libtorch.so
             --exclude libtorch* --exclude libcu* --exclude libnccl*
 
