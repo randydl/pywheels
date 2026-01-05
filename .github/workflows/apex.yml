@@ -54,7 +54,6 @@ jobs:
             CUDA_HOME="/usr/local/cuda"
             CUDACXX="${CUDA_HOME}/bin/nvcc"
             TORCH_CUDA_ARCH_LIST="${{ matrix.arch }}"
-            AUDITWHEEL_PLAT="manylinux_2_27_$(uname -m)"
             MAX_JOBS=1
             APEX_CPP_EXT=1
             APEX_CUDA_EXT=1

@@ -55,7 +55,6 @@ jobs:
             CUDA_HOME="/usr/local/cuda"
             CUDACXX="${CUDA_HOME}/bin/nvcc"
             TORCH_CUDA_ARCH_LIST="${{ matrix.arch }}"
-            AUDITWHEEL_PLAT="manylinux_2_27_$(uname -m)"
             MAX_JOBS=1
             NVTE_FRAMEWORK=pytorch
             NVTE_NO_LOCAL_VERSION=1
