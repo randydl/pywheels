@@ -37,7 +37,7 @@ jobs:
         with:
           repository: NVIDIA/TransformerEngine
           submodules: recursive
-          ref: v2.11
+          ref: v2.12
 
       - name: Set up Python
         uses: actions/setup-python@v5
