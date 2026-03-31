@@ -10,12 +10,12 @@ jobs:
       matrix:
         include:
           - cuda-version: "128"
-            torch-version: "2.8.0"
+            torch-version: "2.9.1"
             archs: "70;75;80;86;89;90"
             cibw-build: "cp312-manylinux_x86_64"
             cibw-build-image: "pytorch/manylinux2_28-builder:cuda12.8"
           - cuda-version: "128"
-            torch-version: "2.9.1"
+            torch-version: "2.10.0"
             archs: "70;75;80;86;89;90"
             cibw-build: "cp312-manylinux_x86_64"
             cibw-build-image: "pytorch/manylinux2_28-builder:cuda12.8"
