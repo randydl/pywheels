@@ -9,16 +9,16 @@ jobs:
     strategy:
       matrix:
         include:
-          - cuda-version: "128"
+          - cuda-version: "129"
             torch-version: "2.9.1"
             archs: "70;75;80;86;89;90"
             cibw-build: "cp312-manylinux_x86_64"
-            cibw-build-image: "pytorch/manylinux2_28-builder:cuda12.8"
-          - cuda-version: "128"
+            cibw-build-image: "pytorch/manylinux2_28-builder:cuda12.9"
+          - cuda-version: "129"
             torch-version: "2.10.0"
             archs: "70;75;80;86;89;90"
             cibw-build: "cp312-manylinux_x86_64"
-            cibw-build-image: "pytorch/manylinux2_28-builder:cuda12.8"
+            cibw-build-image: "pytorch/manylinux2_28-builder:cuda12.9"
 
     steps:
       - name: Free Disk Space (Ubuntu)
