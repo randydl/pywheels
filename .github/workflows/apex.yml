@@ -15,7 +15,7 @@ jobs:
             cibw-build: "cp312-manylinux_x86_64"
             cibw-build-image: "pytorch/manylinux2_28-builder:cuda12.9"
           - cuda-version: "129"
-            torch-version: "2.10.0"
+            torch-version: "2.11.0"
             archs: "7.0;7.5;8.0;8.6;8.9;9.0"
             cibw-build: "cp312-manylinux_x86_64"
             cibw-build-image: "pytorch/manylinux2_28-builder:cuda12.9"
@@ -42,7 +42,7 @@ jobs:
         uses: actions/setup-python@v5
 
       - name: Install cibuildwheel
-        run: python3 -m pip install cibuildwheel==3.3.0
+        run: python3 -m pip install "cibuildwheel<4"
 
       - name: Build wheels for PyTorch ${{ matrix.torch-version }} + CUDA ${{ matrix.cuda-version }}
         run: python3 -m cibuildwheel --output-dir dist
@@ -63,8 +63,7 @@ jobs:
             python -m pip install --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${{ matrix.cuda-version }}
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: >
             auditwheel repair -w {dest_dir} {wheel}
-            --exclude libc10.so --exclude libc10* --exclude libtorch.so
-            --exclude libtorch* --exclude libcu* --exclude libnccl*
+            --exclude libc10* --exclude libtorch* --exclude libcu* --exclude libnccl*
 
       - name: Log Built Wheels
         run: |
