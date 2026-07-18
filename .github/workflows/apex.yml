@@ -59,7 +59,7 @@ jobs:
             APEX_CUDA_EXT=1
           CIBW_BEFORE_BUILD_LINUX: >
             sed -i "s/version=\"0.1\"/version=\"0.1+torch${{ matrix.torch-version }}cu${{ matrix.cuda-version }}\"/g" /project/setup.py &&
-            python -m pip install -U pip setuptools wheel packaging ninja cmake pybind11 "numpy<2.0.0" auditwheel &&
+            python -m pip install -U pip setuptools wheel packaging ninja cmake pybind11 numpy auditwheel &&
             python -m pip install --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${{ matrix.cuda-version }}
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: >
             auditwheel repair -w {dest_dir} {wheel}
